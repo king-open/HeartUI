@@ -1,18 +1,33 @@
 <template>
-  <button class="love-button" :class="{[`love-theme-${theme}`]:theme}">
-    <slot/>
+  <button class="love-button" :class="classes">
+    <slot />
   </button>
 </template>
 
 <script lang="ts">
-export default{
-  props:{
-    theme:{
-      type:String,
-      default:'button'
+import { computed } from "vue";
+export default {
+  props: {
+    theme: {
+      type: String,
+      default: "button",
+    },
+    size: {
+      type: String,
+      default: "normal",
     },
   },
-}
+  setup(props) {
+    const { theme, size } = props;
+    const classes = computed(() => {
+      return {
+        [`love-theme-${theme}`]: theme,
+        [`love-size-${size}`]: size,
+      };
+    });
+    return{classes}
+  },
+};
 </script>
 
 <style lang="scss">
@@ -49,20 +64,34 @@ $radius: 4px;
   &::-moz-focus-inner {
     border: 0;
   }
-  &.love-theme-link{
+  &.love-theme-link {
     border-color: transparent;
     box-shadow: none;
     color: $blue;
-    &:hover,&:focus{
+    &:hover,
+    &:focus {
       color: lighten($blue, 10%);
     }
   }
-  &.love-theme-text{
+  &.love-theme-text {
     border-color: transparent;
     box-shadow: none;
     color: inherit;
-    &:hover,&:focus{
-      background: darken(white, 5%);;
+    &:hover,
+    &:focus {
+      background: darken(white, 5%);
+    }
+  }
+  &.love-theme-button {
+    &.love-size-big {
+      font-size: 24px;
+      height: 48px;
+      padding: 0 16px;
+    }
+    &.love-size-small {
+      font-size: 12px;
+      height: 20px;
+      padding: 0 4px;
     }
   }
 }
