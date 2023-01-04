@@ -1,23 +1,34 @@
 <template>
+  <template v-if="visible">
   <div class="love-dialog-overlay"></div>
-<div class="love-dialog-wrapper">
-  <div class="love-dialog">
-    <header>标题 <span class="love-dialog-close"></span></header>
-    <main>
-      <p>第一行字</p>
-      <p>第二行字</p>
-    </main>
-    <footer>
-      <Button level="main">OK</Button>
-      <Button>Cancel</Button>
-    </footer>
-  </div>
-</div>
+  <div class="love-dialog-wrapper">
+    <div class="love-dialog">
+      <header>
+        标题
+        <span class="love-dialog-close"></span>
+      </header>
+      <main>
+        <p>第一行字</p>
+        <p>第二行字</p>
+      </main>
+      <footer>
+        <Button level="main">OK</Button>
+        <Button>Cancel</Button>
+      </footer>
+    </div>
+    </div>
+  </template>
   </template>
   
   <script lang="ts">
   import Button from './Button.vue'
   export default {
+    props:{
+      visible:{
+        type:Boolean,
+        default:false
+      }
+    },
     components: {
       Button
     }
