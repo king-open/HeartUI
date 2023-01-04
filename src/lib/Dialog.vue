@@ -1,74 +1,75 @@
 <template>
   <template v-if="visible">
-  <div class="love-dialog-overlay" @click="onClickOverlay"></div>
-  <div class="love-dialog-wrapper">
-    <div class="love-dialog">
-      <header>
-        <slot name="title"/>
-        <span @click="close" class="love-dialog-close"></span>
-      </header>
-      <main>
-        <slot name="content"/>
-      </main>
-      <footer>
-        <Button level="main" @click="ok">OK</Button>
-        <Button @click="cancel">Cancel</Button>
-      </footer>
-    </div>
-    </div>
+    <Teleport to="body">
+      <div class="love-dialog-overlay" @click="onClickOverlay"></div>
+      <div class="love-dialog-wrapper">
+        <div class="love-dialog">
+          <header>
+            <slot name="title" />
+            <span @click="close" class="love-dialog-close"></span>
+          </header>
+          <main>
+            <slot name="content" />
+          </main>
+          <footer>
+            <Button level="main" @click="ok">OK</Button>
+            <Button @click="cancel">Cancel</Button>
+          </footer>
+        </div>
+      </div>
+    </Teleport>
   </template>
-  </template>
+</template>
   
   <script lang="ts">
-  import Button from './Button.vue'
-  export default {
-    props:{
-      visible:{
-        type:Boolean,
-        default:false
-      },
-      closeOnClickOverlay:{
-        type:Boolean,
-        default:true
-      },
-      ok:{
-        type:Function
-      },
-      cancel:{
-        type:Function
-      },
+import Button from "./Button.vue";
+export default {
+  props: {
+    visible: {
+      type: Boolean,
+      default: false,
     },
-    components: {
-      Button
+    closeOnClickOverlay: {
+      type: Boolean,
+      default: true,
     },
-    setup(props,context){
-      const close = ()=>{
-        context.emit('update:visible',false)
+    ok: {
+      type: Function,
+    },
+    cancel: {
+      type: Function,
+    },
+  },
+  components: {
+    Button,
+  },
+  setup(props, context) {
+    const close = () => {
+      context.emit("update:visible", false);
+    };
+    const onClickOverlay = () => {
+      if (props.closeOnClickOverlay) {
+        close();
       }
-      const onClickOverlay = ()=>{
-        if(props.closeOnClickOverlay){
-          close()
-        }
+    };
+    const ok = () => {
+      if (props.ok?.() !== false) {
+        close();
       }
-      const ok = ()=>{
-        if(props.ok?.() !== false){
-          close()
-        }
-      }
-      const cancel = ()=>{
-        context.emit('cancel')
-        close()
-      }
-      return {
-        close,
-        onClickOverlay,
-        ok,
-        cancel
-      }
-    }
-
-  }
-  </script>
+    };
+    const cancel = () => {
+      context.emit("cancel");
+      close();
+    };
+    return {
+      close,
+      onClickOverlay,
+      ok,
+      cancel,
+    };
+  },
+};
+</script>
 
 <style lang="scss" scoped>
 $radius: 4px;
@@ -95,7 +96,7 @@ $border-color: #d9d9d9;
     transform: translate(-50%, -50%);
     z-index: 11;
   }
-  >header {
+  > header {
     padding: 12px 16px;
     border-bottom: 1px solid $border-color;
     display: flex;
@@ -103,10 +104,10 @@ $border-color: #d9d9d9;
     justify-content: space-between;
     font-size: 20px;
   }
-  >main {
+  > main {
     padding: 12px 16px;
   }
-  >footer {
+  > footer {
     border-top: 1px solid $border-color;
     padding: 12px 16px;
     text-align: right;
@@ -119,7 +120,7 @@ $border-color: #d9d9d9;
     cursor: pointer;
     &::before,
     &::after {
-      content: '';
+      content: "";
       position: absolute;
       height: 1px;
       background: black;
