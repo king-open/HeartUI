@@ -2,7 +2,9 @@
   <div>Button 示例</div>
   <h1>示例 1</h1>
   <div>
-    <Button>你好</Button>
+    <Button @click="onClick"
+    @focus="onClick"
+    @mouseover="onClick">你好</Button>
   </div>
 </template>
 
