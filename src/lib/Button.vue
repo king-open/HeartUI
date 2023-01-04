@@ -1,5 +1,6 @@
 <template>
-  <button class="love-button" :class="classes">
+  <button class="love-button" :class="classes" 
+  :disabled="disabled">
     <slot />
   </button>
 </template>
@@ -19,6 +20,10 @@ export default {
     level:{
       type:String,
       default:"normal",
+    },
+    disabled: {
+      type: Boolean,
+      default: false,
     },
   },
   setup(props) {
@@ -41,7 +46,8 @@ $border-color: #d9d9d9;
 $color: #333;
 $blue: #40a9ff;
 $radius: 4px;
-$red:red;
+$red: red;
+$grey: grey;
 .love-button {
   box-sizing: border-box;
   height: $h;
@@ -56,6 +62,7 @@ $red:red;
   border: 1px solid $border-color;
   border-radius: $radius;
   box-shadow: 0 1px 0 fade-out(black, 0.95);
+  transition: background 250ms;
   & + & {
     margin-left: 8px;
   }
@@ -145,5 +152,35 @@ $red:red;
       }
     }
   }
+  &.love-theme-button {
+    &[disabled] {
+      cursor: not-allowed;
+      color: $grey;
+      &:hover {
+        border-color: $grey;
+      }
+    }
+  }
+  &.love-theme-link, &.love-theme-text {
+    &[disabled] {
+      cursor: not-allowed;
+      color: $grey;
+    }
+  }
+  > .love-loadingIndicator{
+    width: 14px;
+    height: 14px;
+    display: inline-block;
+    margin-right: 4px;
+    border-radius: 8px; 
+    border-color: $blue $blue $blue transparent;
+    border-style: solid;
+    border-width: 2px;
+    animation: love-spin 1s infinite linear;
+  }
+}
+@keyframes love-spin {
+  0%{transform: rotate(0deg)} 
+  100%{transform: rotate(360deg)} 
 }
 </style>
