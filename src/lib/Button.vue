@@ -1,6 +1,7 @@
 <template>
   <button class="love-button" :class="classes" 
   :disabled="disabled">
+  <span v-if="loading" class="love-loadingIndicator"></span>
     <slot />
   </button>
 </template>
@@ -25,6 +26,10 @@ export default {
       type: Boolean,
       default: false,
     },
+    loading:{
+      type:Boolean,
+      default:false,
+    }
   },
   setup(props) {
     const { theme, size,level } = props;
