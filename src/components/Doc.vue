@@ -3,6 +3,18 @@
     <Topnav toggleMenuButtonVisible class="nav" />
     <div class="content">
       <aside v-if="menuVisible">
+        <h2>文档</h2>
+        <ol>
+          <li>
+            <router-link to="/doc/intro">介绍</router-link>
+          </li>
+          <li>
+            <router-link to="/doc/install">安装</router-link>
+          </li>
+          <li>
+            <router-link to="/doc/get-started">开始使用</router-link>
+          </li>
+        </ol>
         <h2>组件列表</h2>
         <ol>
           <li>
@@ -20,22 +32,22 @@
         </ol>
       </aside>
       <main>
-        <router-view/>
+        <router-view />
       </main>
     </div>
   </div>
 </template>
 
 <script lang="ts">
-import Topnav from '../components/Topnav.vue'
-import { inject, Ref } from 'vue'
-  export default {
-    components:{Topnav},
-    setup(){
-      const menuVisible = inject<Ref<boolean>>('menuVisible') // get
-      return {menuVisible}
-    }
-  }
+import Topnav from "../components/Topnav.vue";
+import { inject, Ref } from "vue";
+export default {
+  components: { Topnav },
+  setup() {
+    const menuVisible = inject<Ref<boolean>>("menuVisible"); // get
+    return { menuVisible };
+  },
+};
 </script>
 
 <style lang="scss" scoped>
@@ -51,7 +63,7 @@ import { inject, Ref } from 'vue'
     padding-top: 60px;
     padding-left: 156px;
     @media (max-width: 500px) {
-      padding-left: 0; 
+      padding-left: 0;
     }
   }
 }
@@ -83,7 +95,7 @@ aside {
       padding: 4px 0;
     }
   }
-  main{
+  main {
     overflow: auto;
   }
 }
